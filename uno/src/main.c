@@ -1,5 +1,8 @@
 #include <ncurses.h>
+#include <stdlib.h>
+#include <time.h>
 
+#include "game.h"
 #include "uno.h"
 
 int main(void) {
@@ -19,12 +22,15 @@ int main(void) {
     //
     // endwin();
 
-    Uno *uno = uno_create(2);
-    uno_reset(uno);
+    srand(time(NULL));
 
-    uno_deck_print(uno->draw_pile);
+    GameState *gs = game_setup(2);
+    int loopstate;
 
-    uno_destroy(uno);
+    while ((loopstate = game_loop(gs)) != GAME_STOP) {
+    }
+
+    game_quit(gs);
 
     return 0;
 }
